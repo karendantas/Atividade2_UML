@@ -73,7 +73,7 @@ class Blog(autenticaMixIn):
             self.__postagens.append(postagem)
         else:
             print("Usuário não autenticado")
-        return True
+        
     
     def publicarPostagem(self, postagem):
         '''Nesse sistema, estou levando em consideração que na hora da criação da postagem
