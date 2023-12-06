@@ -1,6 +1,5 @@
 import datetime
 
-
 class Aeroporto:
     def __init__(self, nome, cidade, capacidade):
         self.nome = nome
@@ -61,6 +60,8 @@ class Reserva:
         if self.pago == True:
             print("Pagamento confirmado")
 
+    
+
 
 class Funcionário:
     def __init__(self, nome, salário):
@@ -69,9 +70,9 @@ class Funcionário:
 
 
 class Operadores(Funcionário):
-    def __init__(self, nome, salário, voo):
+    def __init__(self, nome, salário):
         super().__init__(nome, salário)
-        self.voo_pertencente = voo
+
 
     def criarReservaOP(self, passageiro, numero, voo):
         if passageiro.reserva is None:

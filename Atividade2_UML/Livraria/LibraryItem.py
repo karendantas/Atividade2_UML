@@ -1,9 +1,9 @@
 class LibraryItem:
-    def __init__(self, Title, Subject, Contributors=None, UPC=None):
+    def __init__(self, Title, Subject, Contributorswtype=None, UPC=None):
         self.Title = Title
         self.UPC = UPC
         self.Subject = Subject
-        self.Contributors = Contributors
+        self.Contributors = Contributorswtype
 
     # def Locate()
 
@@ -12,22 +12,22 @@ class Book(LibraryItem):
     def __init__(self, ISBN, Authors, Title, Subject, DDS_number):
         super().__init__(Title,Subject)
         self.ISBN = ISBN
-        self.Authors = Authors.name
+        self.Authors = Authors
         self.DDS_number = DDS_number
 
     def __str__(self):
-        return "Title: {}\nAuthors:{}\nSubject:{}".format(self.Title, self.Authors, self.Subject)
+        return "Title: {}\nAuthors:{}\nSubject:{}".format(self.Title, self.Authors.name, self.Subject)
 
 
 
 class CD(LibraryItem):
     def __init__(self, Artist):
-        self.Artist = Artist.name
+        self.Artist = Artist
 
 class DVD(LibraryItem):
     def __init__(self, Director, Actors, Genre):
-        self.Director = Director.name
-        self.Actors = Actors.name
+        self.Director = Director
+        self.Actors = Actors
         self.Genre = Genre
 
 class Magazine(LibraryItem):
@@ -37,7 +37,7 @@ class Magazine(LibraryItem):
 
 
 
-
+#Colaboradores
 class Contribuitor:
     def __init__(self, name):
         self.name = name
@@ -59,4 +59,6 @@ class Editor(Contribuitor):
 
 class ContribuitorWithType:
     def __init__(self, contribuitor, Type):
-        self.contribuitor = Contribuitor()
+        self.contribuitor = contribuitor
+        self.type = Type
+

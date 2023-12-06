@@ -1,5 +1,5 @@
 from LibraryItem import LibraryItem, Book, CD, DVD, Magazine, Author
-
+import re
 class Catalog:
     book_list = []
 
@@ -11,10 +11,11 @@ class Catalog:
 
     def Search(self, search):
         encontrado = False
+
         for o in self.book_list:
-            if search == o.Title or search == o.Authors or search == o.Subject:
+            if search == o.Title or search == o.Authors.name or search == o.Subject:
                 print(o)
-                encontrado = True
+
 
         if encontrado is False:
             print("Não encontrado")
@@ -23,12 +24,12 @@ class Catalog:
 
 author1 = Author("Isac Asimov")
 author2 = Author("Miranda")
-livro1 = Book(1, author1, "Eu Robo", "Ficção Cientifíca", 222 )
+livro1 = Book(1, author1, "eu Robo", "Ficção Cientifíca", 222 )
 livro2 = Book(2, author2, "Beibe", "Conto", 122 )
 catalogo = Catalog()
 
 
 catalogo.add_ToCatalog(livro1)
 catalogo.add_ToCatalog(livro2)
-catalogo.Search("Eu robo")
+catalogo.Search("eu Robo")
 
