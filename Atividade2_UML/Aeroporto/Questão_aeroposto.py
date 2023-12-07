@@ -16,52 +16,71 @@ class Voo:
         self.Data = Data
         self.Aeroporto = Aeroporto
         self.destino = destino
-        self.reservas = []*300
+        self.reservas = []*self.assentos
 
     def mostrarTripulação(self):
         for t in self.Tripulação.conjunto_aero:
             print(t.nome)
 
 
-class Passageiro:
-    def __init__(self, nome,idade, passaporte=True):
-        self.nome = nome
-        self.idade = idade
-        self.passaporte = passaporte
-        self.reserva = None
+# Como o modelo dizia que "Reservas possui um passageiro" fiz uma composição, onde o passageiro
+# compoe a reserva. Logo se passageiro deixa de existir, a reserva não fará mais sentido.
 
-    def possuiReserva(self):
-        if self.reserva is not None:
-            return True
-
-    def criarReserva(self, numero, voo):
-        if self.possuiReserva() is not True:
-            self.reserva = Reserva(numero,voo, Passageiro)
-        return self.reserva
-    
-    def pagarReserva(self):
-        self.reserva.pago = True
-        print("Pagamento realizado")
-        return self.reserva.pago
-    
-    def cancelarReserva(self, numero):
-        if numero == self.reserva.numero_reserva():
-            self.reserva = None
-        return self.reserva
-
+#No entanto fiquei com uma dúvida, pois pesquisei alguns exemplos de composição e alguns traziam 
+#o atributo inicilizando o prório objeto tipo: "self.passageiro = Passageiro()" e outros mostravam da
+#forma que está na classe Reserva.
 class Reserva:
-    def __init__(self, numero_reserva,passageiro, Voo_Ref, pago=None):
+
+    def __init__(self, numero_reserva, passageiro, Voo_Ref):
         self.numero_reserva = numero_reserva
         self.passageiro = passageiro
         self.Voo_Ref = Voo_Ref
-        self.pago = pago
-
-    def pagamentoConfirmado(self):
-        if self.pago == True:
-            print("Pagamento confirmado")
+     
 
     
+class ManipularReservaMixIn:
 
+    def criarReserva(self, numero, passageiro, Voo_ref):
+
+        reserva = Reserva(numero, passageiro, Voo_ref)
+        reserva.passageiro.reservas.append(reserva)
+
+        '''Ao criar a reserva e identificar o Voo de referencia, o determinado Voo recebe em sua lista
+        de reservas, a instancia criada'''
+        Voo_ref.reservas.append(reserva)
+        print("Reserva criada para o passageiro: {}".format(reserva.passageiro.nome))
+        return True
+    
+    def pagarReserva(self, passageiro):
+        numero = input("Informe o número referente a reserva que deseja ser paga: ")
+        for r in passageiro.reservas:
+            if numero == r.numero_reserva:
+                resposta = input("Confrimar pagamento: S/N")
+                if resposta == 'S':
+                    print("Pagamento realizado")
+                elif resposta == 'N':
+                    print("Pagamento cancelado")
+
+    def cancelarReserva(self, passageiro):
+        numero = input("Informe o número referente a reserva que deseja ser cancelada")
+        for r in passageiro.reservas:
+            if numero == r.numero_reserva:
+                resposta = input("Deseja cancelar a reserva? S/N")
+                if resposta == 'S':
+                    print("Reserva de número {} do passageiro: {} foi cancelada.".format(numero, passageiro.nome))
+                    passageiro.reservas.remove(r)
+                    Voo_ref = passageiro.reserva.r.Voo_ref
+                    Voo_ref.reservas.remove(r)
+                elif resposta == 'N':
+                    print("Cancelamento interrompido")
+        
+class Passageiro(ManipularReservaMixIn):
+    def __init__(self, nome,idade, passaporte):
+        self.nome = nome
+        self.idade = idade
+        self.passaporte = passaporte
+        '''O passageiro pode ter nenhuma ou várias reservas ligadas ao seu nome'''
+        self.reservas = []
 
 class Funcionário:
     def __init__(self, nome, salário):
@@ -69,24 +88,10 @@ class Funcionário:
         self.salario = salário
 
 
-class Operadores(Funcionário):
+class Operadores(Funcionário, ManipularReservaMixIn):
     def __init__(self, nome, salário):
         super().__init__(nome, salário)
 
-
-    def criarReservaOP(self, passageiro, numero, voo):
-        if passageiro.reserva is None:
-            res =  passageiro.criarReserva(numero)
-            return voo.reservas.append(res)
-        else:
-            return voo.reservas.append(passageiro.reserva)
-
-    def cancelarReservaOP(self, passageiro, numero, voo):
-        if passageiro.possuiReserva() is True:
-            res = passageiro.cancelarReserva(numero)
-            return voo.reservar.remove(res)
-        else:
-            return voo.reservar.append(passageiro.reserva())
     
 class Aeroviários(Funcionário):
     pass

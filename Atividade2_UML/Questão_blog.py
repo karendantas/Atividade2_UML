@@ -84,9 +84,7 @@ class Blog(autenticaMixIn):
     
     def listarPostagensPublicadas(self):
         print("listar todas postagens publicadas")
-       
         for p in self.__postagens_publicadas:
-            if p.getdata() <= datetime.date.today():
                 print(p)
     
     def listarTodasPostagens(self):
