@@ -11,16 +11,22 @@ class Produto:
         return self.__valor
 
 
-#na agregação bota os objetos pra dentro da classe que esta se associando
-
 class ItemPedido:
     def __init__(self, quantidade, produto):
         self.__quantidade = quantidade
         self.__itemProduto = produto
     
+    #Gets e sets
     def getquantidade(self):
         return self.__quantidade
+    def setquantidade(self, nova):
+        self.__quantidade = nova
+        return self.__quantidade
+    
     def getproduto(self):
+        return self.__itemProduto
+    def setproduto(self, novo):
+        self.__itemProduto = novo
         return self.__itemProduto
     
 class Pedido:
@@ -29,6 +35,21 @@ class Pedido:
         self.__valortotal = 0
         self.__lista_pedidos = [produto]
 
+    def getitempedido(self):
+        return self.__itemPedido
+    
+    def getvalor(self):
+        return self.__valortotal
+    def setvalor(self, novo):
+        self.__valortotal = novo
+        return self.__valortotal
+    
+    def getlista(self):
+        return self.__lista_pedidos
+    
+    def getlista(self, novoproduto):
+        self.__lista_pedidos.append(novoproduto)
+        return self.__lista_pedidos
     
     def adicionar_item(self, quantidade_produto, produto):
         self.__itemPedido = ItemPedido(quantidade_produto, produto)
