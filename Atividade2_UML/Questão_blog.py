@@ -15,9 +15,28 @@ class Usuario(autenticaMixIn):
         self.__senha = senha
 
 
+    def getid(self):
+        return self.__id
+    def setid(self, novoid):
+        self.__id = novoid
+        return self.__id
+    
+    def getnome(self):
+        return self.__nome
+    def setnome(self, novonome):
+        self.__nome = novonome
+        return self.__nome
+    
     def getlogin(self):
         return self.__login
+    def setlogin(self, novologin):
+        self.__login= novologin
+        return self.__login
+    
     def getsenha(self):
+        return self.__senha
+    def setsenha(self, novasenha):
+        self.__senha = novasenha
         return self.__senha
 
 
@@ -35,19 +54,36 @@ class Postagem:
     def setid(self, novo):
         self.__id = novo
         return self.__id
+    
     def getsenha(self):
         return self.__senha
+    def setsenha(self, novasenha):
+        self.__senha = novasenha
+        return self.__senha
+    
     def getdata(self):
         return self.__dataPublicacao
     def setdata(self):
         return self.__dataPublicacao
+    
     def gettitulo(self):
         return self.__titulo
+    def settitulo(self, novotitulo):
+        self.__titulo = novotitulo
+        return self.__titulo
+    
     def gettexto(self):
         return self.__texto
+    def settexto(self, novotexto):
+        self.__texto = novotexto
+        return self.__texto
+    
     def getautor(self):
         return self.__autor
-
+    def setautor(self, novoautor):
+        self.__autor = novoautor
+        return self.__autor
+    
 
 class Blog(autenticaMixIn):
 

@@ -10,12 +10,14 @@ class Catalog:
             print("Adicionado ao catálogo")
 
     def Search(self, search):
-        encontrado = False
-
+       
+      
         for o in self.book_list:
             if search == o.Title or search == o.Authors.name or search == o.Subject:
+                encontrado = True
                 print(o)
-
+            else:
+                encontrado = False
 
         if encontrado is False:
             print("Não encontrado")

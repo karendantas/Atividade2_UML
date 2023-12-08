@@ -37,7 +37,6 @@ class Reserva:
         self.Voo_Ref = Voo_Ref
      
 
-    
 class ManipularReservaMixIn:
 
     def criarReserva(self, numero, passageiro, Voo_ref):
@@ -51,28 +50,22 @@ class ManipularReservaMixIn:
         print("Reserva criada para o passageiro: {}".format(reserva.passageiro.nome))
         return True
     
-    def pagarReserva(self, passageiro):
-        numero = input("Informe o número referente a reserva que deseja ser paga: ")
+    def pagarReserva(self, passageiro, numero):
+        
         for r in passageiro.reservas:
-            if numero == r.numero_reserva:
-                resposta = input("Confrimar pagamento: S/N")
-                if resposta == 'S':
-                    print("Pagamento realizado")
-                elif resposta == 'N':
-                    print("Pagamento cancelado")
+             if  r.numero_reserva == numero:
+                print("Pagamento realizado")
+             
 
-    def cancelarReserva(self, passageiro):
-        numero = input("Informe o número referente a reserva que deseja ser cancelada")
+    def cancelarReserva(self, passageiro, numero):
+       
         for r in passageiro.reservas:
-            if numero == r.numero_reserva:
-                resposta = input("Deseja cancelar a reserva? S/N")
-                if resposta == 'S':
-                    print("Reserva de número {} do passageiro: {} foi cancelada.".format(numero, passageiro.nome))
-                    passageiro.reservas.remove(r)
-                    Voo_ref = passageiro.reserva.r.Voo_ref
-                    Voo_ref.reservas.remove(r)
-                elif resposta == 'N':
-                    print("Cancelamento interrompido")
+            if  r.numero_reserva == numero:
+                print("Reserva de número {} do passageiro: {} foi cancelada.".format(numero, passageiro.nome))
+                passageiro.reservas.remove(r)
+                Voo_ref = passageiro.reserva.r.Voo_ref
+                Voo_ref.reservas.remove(r)
+              
         
 class Passageiro(ManipularReservaMixIn):
     def __init__(self, nome,idade, passaporte):
@@ -88,6 +81,8 @@ class Funcionário:
         self.salario = salário
 
 
+# Não entendi muito bem como essa classe deveria funcionar, então ela apenas recebe as mesmas funções
+# do MixIn
 class Operadores(Funcionário, ManipularReservaMixIn):
     def __init__(self, nome, salário):
         super().__init__(nome, salário)
